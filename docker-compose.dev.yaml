@@ -1,0 +1,65 @@
+version: '3.9'
+
+x-enviroment:
+    &db-enviroment
+    MYSQL_ROOT_PASSWORD: dontsharethepassworddespiteislocal
+    MYSQL_DATABASE: rikupaycalcdb
+
+x-volumes:
+    &db-volumes
+    - mysql_volumen_dev_rinku_pay_calc:/var/lib/mysql
+
+services:
+
+    rinku_pay_calc_db:
+        image: mysql:5.7
+        environment: *db-enviroment
+        volumes: *db-volumes
+        ports:
+            - 3309:3306
+        networks:
+            dock:
+                ipv4_address: 192.171.0.10
+
+    rinku_pay_calc_back:
+        build:
+            context: ./rinku_pay_calc_back
+            dockerfile: Dockerfile.rinku_pay_calc_back.dev
+        ports:
+            - 8013:8011
+        command: python manage.py runserver 0.0.0.0:8011
+        volumes:
+            - ./rinku_pay_calc_back:/usr/src/app/
+        depends_on:
+            - rinku_pay_calc_db
+        networks:
+            dock:
+                ipv4_address: 192.171.0.11
+
+    rinku-pay-calc-front:
+        build: 
+            context: ./rinku-pay-calc-front
+            dockerfile: Dockerfile.rinku-pay-calc-front.dev
+        environment:
+            NODE_ENV: development
+            CHOKIDAR_USEPOLLING: "true"
+        ports:
+            - 4200:4200
+        command: "ng serve --host 0.0.0.0 --poll=2000 --port 4200 --disable-host-check"
+        volumes:
+            - ./rinku-pay-calc-front:/usr/src/app/
+        depends_on:
+            - rinku_pay_calc_back
+        networks:
+            dock:
+                ipv4_address: 192.171.0.12
+
+networks:
+    dock:
+        driver: bridge
+        ipam:
+            config:
+                - subnet: 192.171.0.0/24
+
+volumes:
+    mysql_volumen_dev_rinku_pay_calc:

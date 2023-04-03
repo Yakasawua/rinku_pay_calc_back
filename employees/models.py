@@ -11,7 +11,7 @@ class Employee(models.Model):
     name = models.CharField(max_length=255)
     role = models.CharField(max_length=2, choices=EMPLOYEE_ROLES)
     base_salary = models.DecimalField(max_digits=10, decimal_places=2, default=30.00)
-    deliveries_payment = models.DecimalField(max_digits=10, decimal_places=2, default=5.00)
+    deliveries_payment_employee = models.DecimalField(max_digits=10, decimal_places=2, default=5.00)
     bonus_hourly = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     @classmethod

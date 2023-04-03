@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_extensions',
 
     'employees',
+    'payroll',
 
     'rest_framework',
     'corsheaders',

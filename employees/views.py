@@ -21,7 +21,7 @@ def create_employee(request):
         return JsonResponse({'status': 'OK', 'message': 'Employee created successfully.'},status=status.HTTP_200_OK)
     return JsonResponse({'status': 'Error', 'message': 'Error creating employee.'}, status=status.HTTP_400_BAD_REQUEST)
 
-# 
+# The database returns a tuple, so it has to be transformed to a dictionary for the serializer
 def tuple_to_dict(employees_data):
     employee_list = []
     for employee in employees_data:
@@ -31,7 +31,7 @@ def tuple_to_dict(employees_data):
             'name': employee[2],
             'role': employee[3],
             'base_salary': employee[4],
-            'deliveries_payment': employee[5],
+            'deliveries_payment_employee': employee[5],
             'bonus_hourly': employee[6]
         }
         employee_list.append(employee_dict)
@@ -40,6 +40,7 @@ def tuple_to_dict(employees_data):
 class EmployeeListView(APIView):
     def get(self, request, format=None):
         cursor = connection.cursor()
+        # Call the stored procedure
         cursor.callproc('get_all_employees')
         # The database returns a tuple
         results = cursor.fetchall()

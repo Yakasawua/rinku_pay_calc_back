@@ -10,5 +10,6 @@ class PayrollSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         response = super().to_representation(instance)
+        #serialize employee id to employee name and number
         response['employee'] = EmployeeNameNumberSerializer(instance['employee']).data
         return response

@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.db import connection
 
-
+# Command to create a stored procedure that saves employees
 class Command(BaseCommand):
     help = 'Creates the create_employee procedure in the database'
 

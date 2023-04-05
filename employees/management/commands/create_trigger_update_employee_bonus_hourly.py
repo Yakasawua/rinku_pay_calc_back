@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.db import connection
 
+# Command to create a trigger to update an employee\'s bonus_hourly
 class Command(BaseCommand):
     help = 'Create a trigger to update an employee\'s bonus_hourly'
 

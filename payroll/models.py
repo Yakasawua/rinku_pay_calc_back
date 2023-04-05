@@ -12,6 +12,7 @@ class Payroll(models.Model):
     grocery_vouchers = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     total_salary = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
+    # When creating a payroll automatically the stored procedure is called to calculate the payroll
     @classmethod
     def create(cls, employee_id, month, deliveries, worked_hours):
         try:

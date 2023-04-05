@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.db import connection
 
+# Command to create the calculate_payroll stored procedure
 class Command(BaseCommand):
     help = 'Creates the calculate_payroll stored procedure'
 

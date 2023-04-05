@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.db import connection
 
-
+# Command to create a stored procedure to get the list of payroll by month and year
 class Command(BaseCommand):
     help = 'Creates a stored procedure to get payroll list by month and year'
 

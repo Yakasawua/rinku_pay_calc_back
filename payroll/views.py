@@ -48,6 +48,7 @@ class PayrollListByMonthYear(APIView):
     def post(self, request, format=None):
         month_year = request.data['month_year']
         cursor = connection.cursor()
+        # Call the stored procedure passing in the parameter
         cursor.callproc('payroll_list_by_month_year', [month_year])
         # The database returns a tuple
         results = cursor.fetchall()

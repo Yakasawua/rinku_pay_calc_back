@@ -54,6 +54,20 @@ services:
             dock:
                 ipv4_address: 192.171.0.12
 
+    rinku-pay-calc-back-spring:
+        build:
+            context: ./spring-boot-backend-apirest
+            dockerfile: Dockerfile.rinku-pay-calc-back-spring.dev
+        ports:
+        - 8080:8080
+        volumes:
+            - ./spring-boot-backend-apirest:/opt/rinku
+        depends_on:
+            - rinku_pay_calc_db
+        networks:
+            dock:
+                ipv4_address: 192.171.0.13
+
 networks:
     dock:
         driver: bridge
